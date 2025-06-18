@@ -12,6 +12,7 @@ declare(strict_types=1);
 if (! function_exists('convert_size')) {
     /**
      * 将字节转化为 kb mb 等单位.
+     * @param mixed $size
      * @return string
      */
     function convert_size($size)
