@@ -27,9 +27,7 @@ class IndexController extends AbstractController
 
     public function info()
     {
-        $id = (int) $this->request->input('id', 0);
-
-        return $this->response->success($this->indexService->info($id));
+        return $this->response->success($this->indexService->info());
     }
 
     public function index()

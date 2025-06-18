@@ -12,17 +12,21 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Constants\ErrorCode;
-use App\Exception\BusinessException;
+use App\Components\Mail;
+use Hyperf\Context\ApplicationContext;
 
 class IndexService
 {
-    public function info(int $id)
+    public function info()
     {
-        if ($id <= 0) {
-            throw new BusinessException(ErrorCode::PARAMS_ID_INVALID, 'id无效');
-        }
+        $startTime = microtime(true);
 
-        return ['info' => 'data info'];
+        $mail = ApplicationContext::getContainer()->get(Mail::class);
+        // ->to 这里填写目标邮箱，大家自己更改，不要都写我的了
+        $mail->to('2043821670@qq.com')->send('邮件测试标题', '<b style="color: #f00;">邮件测试内容</b>');
+
+        $runTime = '耗时: ' . (microtime(true) - $startTime) . ' s';
+
+        return ['runtime' => $runTime];
     }
 }

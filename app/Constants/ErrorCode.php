@@ -27,6 +27,8 @@ enum ErrorCode: int implements ErrorCodeInterface
     #[Message('params.id_invalid')]
     case PARAMS_ID_INVALID = 100001;
 
+    public const MAIL_SEND_FAILED = 100002;
+
     public function getMessage(?array $translate = null): string
     {
         $arguments = [];
