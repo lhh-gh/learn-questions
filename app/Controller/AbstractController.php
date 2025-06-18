@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Components\Response;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
-use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Container\ContainerInterface;
 
 abstract class AbstractController
@@ -26,5 +26,6 @@ abstract class AbstractController
     protected RequestInterface $request;
 
     #[Inject]
-    protected ResponseInterface $response;
+//    protected ResponseInterface $response;
+    protected Response $response;
 }
