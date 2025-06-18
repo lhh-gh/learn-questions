@@ -16,3 +16,4 @@ use Hyperf\HttpServer\Router\Router;
 Router::get('/favicon.ico', function () {
     return '';
 });
+Router::post('/mail/getCode', 'App\Controller\MailController@getCode');

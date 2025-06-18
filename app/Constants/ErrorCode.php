@@ -17,7 +17,7 @@ use Hyperf\Constants\Annotation\Message;
 use Hyperf\Constants\EnumConstantsTrait;
 
 #[Constants]
-enum ErrorCode: int implements ErrorCodeInterface
+enum ErrorCode: int
 {
     use EnumConstantsTrait;
 
@@ -27,15 +27,24 @@ enum ErrorCode: int implements ErrorCodeInterface
     #[Message('params.id_invalid')]
     case PARAMS_ID_INVALID = 100001;
 
+    #[Message('mail.send_failed')]
     public const MAIL_SEND_FAILED = 100002;
 
-    public function getMessage(?array $translate = null): string
-    {
-        $arguments = [];
-        if ($translate) {
-            $arguments = [$translate];
-        }
+    #[Message('mail.sent_frequently')]
+    public const CODE_SENT_FREQUENTLY = 100003;
 
-        return $this->__call('getMessage', $arguments);
-    }
+    #[Message('user.exists')]
+    public const USER_EXISTS = 200001;
+    //    public function getMessage(?array $translate = null): string
+    //    {
+    //        $arguments = [];
+    //        if ($translate) {
+    //            $arguments = [$translate];
+    //        }
+    //
+    //        return $this->__call('getMessage', $arguments);
+    //    }
+
+    #[Message('form.error')]
+    public const FORM_ERROR = 100006;
 }
