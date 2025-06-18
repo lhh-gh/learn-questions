@@ -12,14 +12,28 @@ declare(strict_types=1);
 
 namespace App\Constants;
 
-use Hyperf\Constants\AbstractConstants;
 use Hyperf\Constants\Annotation\Constants;
+use Hyperf\Constants\Annotation\Message;
+use Hyperf\Constants\EnumConstantsTrait;
 
 #[Constants]
-class ErrorCode extends AbstractConstants
+enum ErrorCode: int implements ErrorCodeInterface
 {
-    /**
-     * @Message("Server Error！")
-     */
-    public const SERVER_ERROR = 500;
+    use EnumConstantsTrait;
+
+    #[Message('Server Error!')]
+    case SERVER_ERROR = 500;
+
+    #[Message('params.id_invalid')]
+    case PARAMS_ID_INVALID = 100001;
+
+    public function getMessage(?array $translate = null): string
+    {
+        $arguments = [];
+        if ($translate) {
+            $arguments = [$translate];
+        }
+
+        return $this->__call('getMessage', $arguments);
+    }
 }

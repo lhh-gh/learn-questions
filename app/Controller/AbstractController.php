@@ -26,6 +26,6 @@ abstract class AbstractController
     protected RequestInterface $request;
 
     #[Inject]
-//    protected ResponseInterface $response;
+    //    protected ResponseInterface $response;
     protected Response $response;
 }
