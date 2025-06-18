@@ -20,16 +20,14 @@ use App\Service\Instance\JwtInstance;
 use App\Service\UserService;
 use Hyperf\Di\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
-
+use Hyperf\Swagger\Annotation as SA;
+#[SA\HyperfServer('http')]
 class UserController extends AbstractController
 {
     #[Inject]
     protected UserService $userService;
 
-    /**
-     * 注册.
-     * @return ResponseInterface
-     */
+    #[SA\Post(path: '/user/singup', description: '注册接口', tags: ['用户'], summary: ' POST 表单示例')]
     public function signup(SignUpRequest $signUpRequest)
     {
         // 获取已验证的数据
@@ -43,10 +41,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    /**
-     * 登录.
-     * @return \Psr\Http\Message\ResponseInterface
-     */
+
     public function login(LoginRequest $loginRequest)
     {
         $validated = $loginRequest->validated();
