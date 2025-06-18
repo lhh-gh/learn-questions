@@ -56,4 +56,13 @@ enum ErrorCode: int
 
     #[Message('token.expired')]
     public const TOKEN_EXPIRED = 10009;
+
+    #[Message('user.not_exists')]
+    const USER_NOT_EXISTS = 100010;
+
+    #[Message('password.error')]
+    const PASSWORD_ERROR = 100011;
+    #[Message('forbidden')]
+    const FORBIDDEN = 11111;
+
 }

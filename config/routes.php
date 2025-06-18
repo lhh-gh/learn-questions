@@ -18,3 +18,7 @@ Router::get('/favicon.ico', function () {
 });
 Router::post('/mail/getCode', 'App\Controller\MailController@getCode');
 Router::post('/user/signup', 'App\Controller\UserController@signup');
+Router::post('/user/login', 'App\Controller\UserController@login');
+Router::addGroup('/auth', function () {
+    Router::get('/user/test', 'App\Controller\UserController@test');
+}, ['middleware' => [\App\Middleware\AuthMiddleware::class]]);

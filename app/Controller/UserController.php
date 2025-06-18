@@ -12,7 +12,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Constants\ErrorCode;
+use App\Exception\BusinessException;
+use App\Request\LoginRequest;
 use App\Request\SignUpRequest;
+use App\Service\Instance\JwtInstance;
 use App\Service\UserService;
 use Hyperf\Di\Annotation\Inject;
 use Psr\Http\Message\ResponseInterface;
@@ -38,4 +42,43 @@ class UserController extends AbstractController
             'token' => $token,
         ]);
     }
+
+    /**
+     * 登录.
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function login(LoginRequest $loginRequest)
+    {
+        $validated = $loginRequest->validated();
+
+        [$user, $token] = $this->userService->login($validated['email'], $validated['password']);
+
+        return $this->response->success([
+            'user' => $user,
+            'token' => $token,
+        ]);
+    }
+
+
+    public function test()
+    {
+        $token = $this->request->input('token');
+
+
+        $jwtInstance = JwtInstance::instance();
+        try {
+            $jwtInstance->decode($token);
+        } catch (\Throwable $e) {
+        }
+
+        $uid = $jwtInstance->getId();
+        if (empty($uid)) {
+            throw new BusinessException(ErrorCode::FORBIDDEN);
+        }
+
+        return $this->response->success([
+            'uid' => $uid,
+        ]);
+    }
+
 }

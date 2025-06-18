@@ -62,4 +62,23 @@ class UserService extends Service
 
         return [$userInfo, $token];
     }
+    public function login($email, $password)
+    {
+        // 校验用户是否存在
+        $user = User::query()->where(['email' => $email])->first();
+        if (empty($user)) {
+            throw new BusinessException(ErrorCode::USER_NOT_EXISTS);
+        }
+
+        // 校验密码是否正确
+        if (! password_verify($password, $user['password'])) {
+            throw new BusinessException(ErrorCode::PASSWORD_ERROR);
+        }
+
+        // jwt 编码获取 token 和用户信息
+        $token = JwtInstance::instance()->encode($user);
+        $userInfo = JwtInstance::instance()->getUser();
+
+        return [$userInfo, $token];
+    }
 }
